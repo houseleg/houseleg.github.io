@@ -2,9 +2,9 @@
 name: Deploy static content to Pages
 
 on:
-  # デフォルトブランチを対象としたプッシュ時にで実行されます
-  push:
-    branches: ['main']
+  pull_request:
+    branches:
+      - 'feature/**'
 
   # Actions タブから手動でワークフローを実行できるようにします
   workflow_dispatch:
@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
